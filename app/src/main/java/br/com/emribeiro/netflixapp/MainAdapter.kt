@@ -3,7 +3,7 @@ package br.com.emribeiro.netflixapp
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.emribeiro.netflixapp.model.Movie
 
@@ -25,8 +25,9 @@ class RecyclerViewAdapter(private val movies: List<Movie>): RecyclerView.Adapter
 
     inner class MovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         fun bind(movie: Movie){
-            val text: TextView = itemView.findViewById(R.id.list_item_text)
-            text.text = movie.name
+            val image: ImageView = itemView.findViewById(R.id.movie_image)
+            image.contentDescription = movie.name
+            image.setImageResource(movie.image)
         }
     }
 }

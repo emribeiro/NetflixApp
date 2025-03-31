@@ -22,8 +22,8 @@ class MainActivity : AppCompatActivity() {
 
         val movieList = mutableListOf<Movie>()
 
-        for(i in 1..20){
-            movieList.add(Movie("Movie $i"))
+        for(i in 1..4){
+            movieList.add(Movie("Movie $i", R.drawable.movie_4))
         }
 
         val recyclerView: RecyclerView = findViewById(R.id.main_rv)
