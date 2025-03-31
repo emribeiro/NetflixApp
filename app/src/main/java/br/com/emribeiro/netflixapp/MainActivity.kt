@@ -1,14 +1,13 @@
 package br.com.emribeiro.netflixapp
 
 import android.os.Bundle
-import android.view.View
-import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import br.com.emribeiro.netflixapp.model.Movie
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,9 +20,15 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        val movieList = mutableListOf<Movie>()
+
+        for(i in 1..20){
+            movieList.add(Movie("Movie $i"))
+        }
+
         val recyclerView: RecyclerView = findViewById(R.id.main_rv)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = RecyclerViewAdapter()
+        recyclerView.adapter = RecyclerViewAdapter(movieList)
     }
 
 
