@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         for(k in 1..4){
             val movieList = mutableListOf<Movie>()
             for(i in 1..4){
-                movieList.add(Movie("Movie $i", R.drawable.movie_4))
+                movieList.add(Movie("Movie $i", R.drawable.placeholder_bg))
             }
             categoriesList.add(Category("Category $k", movieList))
         }
