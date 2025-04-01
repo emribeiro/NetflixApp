@@ -1,4 +1,4 @@
 package br.com.emribeiro.netflixapp.model
 
-data class Category( private val name: String
-                   , private val movies: List<Movie>)
+data class Category( val name: String
+                   , val movies: List<Movie>)

@@ -7,6 +7,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import br.com.emribeiro.netflixapp.model.Category
 import br.com.emribeiro.netflixapp.model.Movie
 
 class MainActivity : AppCompatActivity() {
@@ -20,15 +21,20 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val movieList = mutableListOf<Movie>()
+        val categoriesList = mutableListOf<Category>()
 
-        for(i in 1..4){
-            movieList.add(Movie("Movie $i", R.drawable.movie_4))
+        for(k in 1..4){
+            val movieList = mutableListOf<Movie>()
+            for(i in 1..4){
+                movieList.add(Movie("Movie $i", R.drawable.movie_4))
+            }
+            categoriesList.add(Category("Category $k", movieList))
         }
 
+
         val recyclerView: RecyclerView = findViewById(R.id.main_rv)
-        recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        recyclerView.adapter = RecyclerViewAdapter(movieList)
+        recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        recyclerView.adapter = CategoryAdapter(categoriesList)
     }
 
 
