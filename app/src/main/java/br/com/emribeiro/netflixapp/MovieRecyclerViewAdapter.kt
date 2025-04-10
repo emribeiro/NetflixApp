@@ -26,8 +26,8 @@ class MovieRecyclerViewAdapter(private val movies: List<Movie>): RecyclerView.Ad
     inner class MovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         fun bind(movie: Movie){
             val image: ImageView = itemView.findViewById(R.id.movie_image)
-            image.contentDescription = movie.name
-            image.setImageResource(movie.image)
+            image.contentDescription = movie.coverUrl
+            image.setImageResource(R.drawable.placeholder_bg)
         }
     }
 }

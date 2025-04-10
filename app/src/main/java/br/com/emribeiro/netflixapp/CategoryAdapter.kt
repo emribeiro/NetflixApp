@@ -29,7 +29,7 @@ class CategoryAdapter(private val categories: List<Category>):
     inner class CategoryViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         fun bind(category: Category){
             val title: TextView = itemView.findViewById(R.id.category_name)
-            title.text = category.name
+            title.text = category.title
             val moviesRecyclerView: RecyclerView = itemView.findViewById(R.id.movies_rv)
             moviesRecyclerView.layoutManager = LinearLayoutManager(itemView.context, RecyclerView.HORIZONTAL, false)
             moviesRecyclerView.adapter = MovieRecyclerViewAdapter(category.movies)

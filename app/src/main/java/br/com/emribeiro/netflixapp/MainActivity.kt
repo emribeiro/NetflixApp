@@ -8,6 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import br.com.emribeiro.netflixapp.data.RemoteDatasource
 import br.com.emribeiro.netflixapp.model.Category
 import br.com.emribeiro.netflixapp.model.Movie
 
@@ -26,15 +27,17 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_24)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        val datasource = RemoteDatasource()
+        datasource.execute("https://atway.tiagoaguiar.co/fenix/netflixapp/home?apiKey=ec0c1b1f-23d4-436f-b91c-0242f2e770ef")
 
         val categoriesList = mutableListOf<Category>()
 
         for(k in 1..4){
             val movieList = mutableListOf<Movie>()
             for(i in 1..4){
-                movieList.add(Movie("Movie $i", R.drawable.placeholder_bg))
+                movieList.add(Movie(i , "Movie $i"))
             }
-            categoriesList.add(Category("Category $k", movieList))
+            categoriesList.add(Category(k, "Category $k", movieList))
         }
 
 
@@ -42,7 +45,5 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         recyclerView.adapter = CategoryAdapter(categoriesList)
     }
-
-
 
 }

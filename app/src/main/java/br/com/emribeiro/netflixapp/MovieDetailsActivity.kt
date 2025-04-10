@@ -47,7 +47,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         movieCast.text = "Christian Bale, Tom Hardy, Anne Hathaway e outros"
         val movieList = mutableListOf<Movie>()
         for(k in 1..12){
-            movieList.add(Movie("Movie $k", R.drawable.placeholder_bg))
+            movieList.add(Movie(k, "Movie $k"))
         }
 
         val similarOptionsRv: RecyclerView = findViewById(R.id.other_options_rv)
