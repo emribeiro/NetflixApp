@@ -1,5 +1,7 @@
 package br.com.emribeiro.netflixapp.data
 
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import br.com.emribeiro.netflixapp.model.Category
 import br.com.emribeiro.netflixapp.model.Movie
@@ -11,10 +13,14 @@ import javax.net.ssl.HttpsURLConnection
 
 class RemoteDatasource(private val callback: Callback) {
 
+    val handler = Handler(Looper.getMainLooper())
+
     interface Callback{
         fun onResult(categories: List<Category>)
         fun onError(message: String)
     }
+
+
     fun execute(url: String){
         val executor = Executors.newSingleThreadExecutor()
 
@@ -35,10 +41,17 @@ class RemoteDatasource(private val callback: Callback) {
                     it.readText()
                 }
                 Log.i("Dados", toCategories(jsonData).toString())
-                callback.onResult(toCategories(jsonData))
+
+                handler.post {
+                    callback.onResult(toCategories(jsonData))
+                }
+
             }catch (e: Exception){
                 Log.e("Error", e.message, e)
-                callback.onError("Erro de Execução")
+                handler.post{
+                    callback.onError("Erro de Execução")
+                }
+
             }
 
         }

@@ -12,9 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.emribeiro.netflixapp.data.RemoteDatasource
 import br.com.emribeiro.netflixapp.model.Category
-import br.com.emribeiro.netflixapp.model.Movie
 
 class MainActivity : AppCompatActivity(), RemoteDatasource.Callback {
+
+    val categoriesList = mutableListOf<Category>()
+    lateinit var categoryAdapter: CategoryAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -32,24 +35,17 @@ class MainActivity : AppCompatActivity(), RemoteDatasource.Callback {
         val datasource = RemoteDatasource(this)
         datasource.execute("https://atway.tiagoaguiar.co/fenix/netflixapp/home?apiKey=ec0c1b1f-23d4-436f-b91c-0242f2e770ef")
 
-        val categoriesList = mutableListOf<Category>()
-
-        for(k in 1..4){
-            val movieList = mutableListOf<Movie>()
-            for(i in 1..4){
-                movieList.add(Movie(i , "Movie $i"))
-            }
-            categoriesList.add(Category(k, "Category $k", movieList))
-        }
-
-
         val recyclerView: RecyclerView = findViewById(R.id.main_rv)
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        recyclerView.adapter = CategoryAdapter(categoriesList)
+        categoryAdapter = CategoryAdapter(categoriesList)
+        recyclerView.adapter = categoryAdapter
     }
 
     override fun onResult(categories: List<Category>) {
         Log.i("MainDados", categories.toString())
+        categoriesList.clear()
+        categoriesList.addAll(categories)
+        categoryAdapter.notifyDataSetChanged()
     }
 
     override fun onError(message: String) {
