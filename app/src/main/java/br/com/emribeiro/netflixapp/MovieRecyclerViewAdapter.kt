@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.emribeiro.netflixapp.model.Movie
 import com.bumptech.glide.Glide
 
-class MovieRecyclerViewAdapter(private val movies: List<Movie>): RecyclerView.Adapter<MovieRecyclerViewAdapter.MovieViewHolder>(){
+class MovieRecyclerViewAdapter( private val movies: List<Movie>
+                              , private val onClickItemListener: ((Int) -> Unit)?
+                              ): RecyclerView.Adapter<MovieRecyclerViewAdapter.MovieViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
@@ -33,6 +35,9 @@ class MovieRecyclerViewAdapter(private val movies: List<Movie>): RecyclerView.Ad
                 .load(movie.coverUrl)
                 .placeholder(R.drawable.placeholder_bg)
                 .into(image)
+            image.setOnClickListener{
+                onClickItemListener?.invoke(movie.id)
+            }
         }
     }
 }

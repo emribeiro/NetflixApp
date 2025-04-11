@@ -1,5 +1,6 @@
 package br.com.emribeiro.netflixapp
 
+import android.content.Intent
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.widget.ImageView
@@ -52,7 +53,12 @@ class MovieDetailsActivity : AppCompatActivity() {
 
         val similarOptionsRv: RecyclerView = findViewById(R.id.other_options_rv)
         similarOptionsRv.layoutManager = GridLayoutManager(this, 4)
-        similarOptionsRv.adapter = MovieRecyclerViewAdapter(movieList)
+        similarOptionsRv.adapter = MovieRecyclerViewAdapter(movieList){ id ->
+            val intent = Intent(this@MovieDetailsActivity
+                               , MovieDetailsActivity::class.java)
+            intent.putExtra("id", id)
+            startActivity(intent)
+        }
 
     }
 }

@@ -1,5 +1,6 @@
 package br.com.emribeiro.netflixapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -37,7 +38,11 @@ class MainActivity : AppCompatActivity(), RemoteDatasource.Callback {
 
         val recyclerView: RecyclerView = findViewById(R.id.main_rv)
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        categoryAdapter = CategoryAdapter(categoriesList)
+        categoryAdapter = CategoryAdapter(categoriesList){ id ->
+            val intent = Intent(this@MainActivity, MovieDetailsActivity::class.java)
+            intent.putExtra("id", id)
+            startActivity(intent)
+        }
         recyclerView.adapter = categoryAdapter
     }
 
